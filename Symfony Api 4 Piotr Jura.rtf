@@ -1,0 +1,87 @@
+{\rtf1\ansi\ansicpg1250\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset238 Calibri;}{\f1\fnil Consolas;}}
+{\colortbl ;\red204\green120\blue50;\red35\green37\blue37;\red169\green183\blue198;\red98\green151\blue85;\red152\green118\blue170;\red106\green135\blue89;\red104\green151\blue187;\red255\green198\blue109;\red114\green115\blue122;}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs22\lang1045 PHP\par
+Section 3 Lesson 13 Interfaces\par
+\par
+Section 4 Lesson 23\par
+\b0 composer create-project symfony/skeleton project\par
+\b\par
+Section 4 lesson 25\par
+Controllers:\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\b0\f1\fs20 <?php\line\line namespace \cf3 App\\Controller\cf1 ;\line\line use \cf3 Symfony\\Component\\HttpFoundation\\JsonResponse\cf1 ;\line use \cf3 Symfony\\Component\\Routing\\Annotation\\Route\cf1 ;\line use \cf3 Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController\cf1 ;\line\line\cf4\i /**\line  * \b @Route\b0 ("/blog")\line  */\line\cf1\i0 class \cf3 BlogController \cf1 extends \cf3 AbstractController\line\cf5\i\{\line     \cf1\i0 private const \cf5\i POSTS \cf3\i0 = \cf5\i [\line         [\line         \cf6\i0 'id' \cf3 => \cf7 1\cf1 ,\line         \cf6 'slug' \cf3 => \cf6 'hello-world'\cf1 ,\line         \cf6 'title' \cf3 => \cf6 'Hello World!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 2\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'another-post'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is another post!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 3\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'last-example'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is the last example'\line         \cf5\i ]\line     ]\cf1\i0 ;\line\line     \cf4\i /**\line      * \b @Route\b0 ("/", name="blog_list")\line      */\line     \cf1\i0 public function \cf8 list\cf5\i ()\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS)\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/\{id\}", name="blog_by_id", requirements=\{"id"="\\d+"\})\line      */\line     \cf1\i0 public function \cf8 post\cf5\i (\i0 $id\i )\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $id\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'id'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/\{slug\}", name="blog_by_slug")\line      */\line     \cf1\i0 public function \cf9 postBySlug\cf5\i (\i0 $slug\i )\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $slug\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'slug'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\i0\f0\fs22\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\f1\fs20 <?php\line\line namespace \cf3 App\\Controller\cf1 ;\line\line use \cf3 Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController\cf1 ;\line use \cf3 Symfony\\Component\\HttpFoundation\\JsonResponse\cf1 ;\line use \cf3 Symfony\\Component\\Routing\\Annotation\\Route\cf1 ;\line\line\cf4\i /**\line  * Class DefaultController\line  * \b @package \b0 App\\Controller\line  * \b @Route\b0 ("/")\line  */\line\cf1\i0 class \cf3 DefaultController \cf1 extends \cf3 AbstractController\line\cf5\i\{\line     \cf4 /**\line      * \b @Route\b0 ("/", name="default_index")\line      */\line     \cf1\i0 public function \cf8 index\cf5\i ()\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i ([\line             \cf6\i0 'action' \cf3 => \cf6 'index'\cf1 ,\line             \cf6 'time' \cf3 => time\cf5\i ()\line         ])\cf1\i0 ;\line     \cf5\i\}\line\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\i0\f0\fs22\par
+\b Section 4 lesson 26\par
+\b0\fs28 php bin/console debug:router  \i\fs22 // \i0 wyswietla w liscie wszystkie routes w aplikacji\par
+\b\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\b0\f1\fs20 <?php\line\line namespace \cf3 App\\Controller\cf1 ;\line\line use \cf3 Symfony\\Component\\HttpFoundation\\JsonResponse\cf1 ;\line use \cf3 Symfony\\Component\\Routing\\Annotation\\Route\cf1 ;\line use \cf3 Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController\cf1 ;\line\line\cf4\i /**\line  * \b @Route\b0 ("/blog")\line  */\line\cf1\i0 class \cf3 BlogController \cf1 extends \cf3 AbstractController\line\cf5\i\{\line     \cf1\i0 private const \cf5\i POSTS \cf3\i0 = \cf5\i [\line         [\line         \cf6\i0 'id' \cf3 => \cf7 1\cf1 ,\line         \cf6 'slug' \cf3 => \cf6 'hello-world'\cf1 ,\line         \cf6 'title' \cf3 => \cf6 'Hello World!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 2\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'another-post'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is another post!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 3\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'last-example'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is the last example'\line         \cf5\i ]\line     ]\cf1\i0 ;\line\line     \cf4\i /**\line      * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\})\line      * \b @return \b0 JsonResponse\line      */\line     \cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf5\i )\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i ([\line             \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line             \cf6 'data' \cf3 => \cf1 self\cf3 ::\cf5\i POSTS\line         ]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{id\}", name="blog_by_id", requirements=\{"id"="\\d+"\})\line      */\line     \cf1\i0 public function \cf8 post\cf5\i (\i0 $id\i )\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $id\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'id'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{slug\}", name="blog_by_slug")\line      */\line     \cf1\i0 public function \cf9 postBySlug\cf5\i (\i0 $slug\i )\line     \{\line         \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $slug\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'slug'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22 Section 4 lesson 27 Routing - generating urls using route names\par
+dla id:\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf3\highlight2\b0\fs20\line\cf4\i\f1 /**\line  * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\})\line  * \b @return \b0 JsonResponse\line  */\line\cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf5\i )\line\{\line     \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line         [\line             \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line             \cf6 'data' \cf3 => array_map\cf5\i (\cf1\i0 function \cf5\i (\i0 $item\i ) \{\line                 \cf1\i0 return \cf5 $this\cf3 ->\cf8 generateUrl\cf5\i (\cf6\i0 'blog_by_id'\cf1 , \cf5\i [\cf6\i0 'id' \cf3 => \cf5 $item\i [\cf6\i0 'id'\cf5\i ]])\cf1\i0 ;\line             \cf5\i\}\cf1\i0 , self\cf3 ::\cf5\i POSTS)\line         ]\line     )\cf1\i0 ;\line\cf5\i\}\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22\par
+dla slug:\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf4\highlight2\b0\i\f1\fs20 /**\line  * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\})\line  * \b @return \b0 JsonResponse\line  */\line\cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf5\i )\line\{\line     \cf1\i0 return new \cf3 JsonResponse\cf5\i (\line         [\line             \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line             \cf6 'data' \cf3 => array_map\cf5\i (\cf1\i0 function \cf5\i (\i0 $item\i ) \{\line                 \cf1\i0 return \cf5 $this\cf3 ->\cf8 generateUrl\cf5\i (\cf6\i0 'blog_by_slug'\cf1 , \cf5\i [\cf6\i0 'slug' \cf3 => \cf5 $item\i [\cf6\i0 'slug'\cf5\i ]])\cf1\i0 ;\line             \cf5\i\}\cf1\i0 , self\cf3 ::\cf5\i POSTS)\line         ]\line     )\cf1\i0 ;\line\cf5\i\}\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22\par
+Section 4 lesson 28 - AbstractController, Request, Response\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\b0\f1\fs20 <?php\line\line namespace \cf3 App\\Controller\cf1 ;\line\line use \cf3 Symfony\\Component\\HttpFoundation\\JsonResponse\cf1 ;\line use \cf3 Symfony\\Component\\HttpFoundation\\Request\cf1 ;\line use \cf3 Symfony\\Component\\Routing\\Annotation\\Route\cf1 ;\line use \cf3 Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController\cf1 ;\line\line\cf4\i /**\line  * \b @Route\b0 ("/blog")\line  */\line\cf1\i0 class \cf3 BlogController \cf1 extends \cf3 AbstractController\line\cf5\i\{\line     \cf1\i0 private const \cf5\i POSTS \cf3\i0 = \cf5\i [\line         [\line         \cf6\i0 'id' \cf3 => \cf7 1\cf1 ,\line         \cf6 'slug' \cf3 => \cf6 'hello-world'\cf1 ,\line         \cf6 'title' \cf3 => \cf6 'Hello World!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 2\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'another-post'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is another post!'\line         \cf5\i ]\cf1\i0 ,\line         \cf5\i [\line             \cf6\i0 'id' \cf3 => \cf7 3\cf1 ,\line             \cf6 'slug' \cf3 => \cf6 'last-example'\cf1 ,\line             \cf6 'title' \cf3 => \cf6 'This is the last example'\line         \cf5\i ]\line     ]\cf1\i0 ;\line\line     \cf4\i /**\line      * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\})\line      * \b @return \b0 JsonResponse\line      */\line     \cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf1 , \cf3 Request \cf5 $request\i )\line     \{\line         \i0 $limit \cf3 = \cf5 $request\cf3 ->\cf8 get\cf5\i (\cf6\i0 'limit'\cf1 , \cf7 10\cf5\i )\cf1\i0 ;\line\line         return \cf5 $this\cf3 ->\cf8 json\cf5\i (\line             [\line                 \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line                 \cf6 'limit' \cf3 => \cf5 $limit\cf1 ,\line                 \cf6 'data' \cf3 => array_map\cf5\i (\cf1\i0 function \cf5\i (\i0 $item\i ) \{\line                     \cf1\i0 return \cf5 $this\cf3 ->\cf8 generateUrl\cf5\i (\cf6\i0 'blog_by_slug'\cf1 , \cf5\i [\cf6\i0 'slug' \cf3 => \cf5 $item\i [\cf6\i0 'slug'\cf5\i ]])\cf1\i0 ;\line                 \cf5\i\}\cf1\i0 , self\cf3 ::\cf5\i POSTS)\line             ]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{id\}", name="blog_by_id", requirements=\{"id"="\\d+"\})\line      */\line     \cf1\i0 public function \cf8 post\cf5\i (\i0 $id\i )\line     \{\line         \cf1\i0 return \cf5 $this\cf3 ->\cf8 json\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $id\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'id'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{slug\}", name="blog_by_slug")\line      */\line     \cf1\i0 public function \cf9 postBySlug\cf5\i (\i0 $slug\i )\line     \{\line         \cf1\i0 return \cf5 $this\cf3 ->\cf8 json\cf5\i (\line             \cf1\i0 self\cf3 ::\cf5\i POSTS[\cf3\i0 array_search\cf5\i (\i0 $slug\cf1 , \cf3 array_column\cf5\i (\cf1\i0 self\cf3 ::\cf5\i POSTS\cf1\i0 , \cf6 'slug'\cf5\i ))]\line         )\cf1\i0 ;\line     \cf5\i\}\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22 Section 5 Symfony Introduction - Databases, Doctrine, Fixtures\par
+lesson 29 - AbstractController, Request, Response\par
+\b0 composer require symfony/orm-pack\b\par
+\b0 composer require symfony/maker-bundle --dev\par
+\par
+\b Section 5 lesson 30 - Generating first entity\par
+\b0 php bin/console make:entity\par
+Created: title, published, author\par
+php bin/console doctrine:database:create\par
+php bin/console make:migration\par
+php bin/console doctrine:migrations:migrate\b\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\b0\par
+\par
+\par
+\par
+\par
+}
+ 
