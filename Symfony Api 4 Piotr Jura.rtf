@@ -47,19 +47,30 @@ lesson 29 - AbstractController, Request, Response\par
 \par
 \b Section 5 lesson 30 - Generating first entity\par
 \b0 php bin/console make:entity\par
+Name: BlogPost\par
 Created: title, published, author\par
 php bin/console doctrine:database:create\par
 php bin/console make:migration\par
 php bin/console doctrine:migrations:migrate\b\par
 \par
+Section 5 lesson 32 - Generating first entity\par
+\b0 add slug to entity\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf4\highlight2\i\f1\fs20 /**\line  * \b @ORM\\Column\b0 (type="string", length=255, nullable=true)\line  */\line\cf1\i0 private \cf5 $slug\cf1 ;\par
 \par
 \par
+\cf3\line     \cf1 public function \cf9 getSlug\cf5\i ()\line     \{\line         \cf1\i0 return \cf5 $this\cf3 ->\cf5 slug\cf1 ;\line     \cf5\i\}\line\line     \cf1\i0 public function \cf9 setSlug\cf5\i (\i0 $slug\i )\cf3\i0 : \cf1 void\line     \cf5\i\{\line         \i0 $this\cf3 ->\cf5 slug \cf3 = \cf5 $slug\cf1 ;\line     \cf5\i\}\line\cf0\highlight0\b\i0\f0\fs22\par
+
+\pard\sa200\sl276\slmult1\b0 repeat make migration and migrations migrate\b\par
 \par
+Section 5 lesson 33 - Persisting entities and serializing data\par
+\b0 composer require serializer\b\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf4\highlight2\b0\i\f1\fs20 /**\line  * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\}, requirements=\{"page"="\\d+"\})\line  */\line\cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf1 , \cf3 Request \cf5 $request\i )\line\{\line     \i0 $limit \cf3 = \cf5 $request\cf3 ->\cf8 get\cf5\i (\cf6\i0 'limit'\cf1 , \cf7 10\cf5\i )\cf1\i0 ;\line\line     return \cf5 $this\cf3 ->\cf8 json\cf5\i (\line         [\line             \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line             \cf6 'limit' \cf3 => \cf5 $limit\cf1 ,\line             \cf6 'data' \cf3 => array_map\cf5\i (\cf1\i0 function \cf5\i (\i0 $item\i ) \{\line                 \cf1\i0 return \cf5 $this\cf3 ->\cf8 generateUrl\cf5\i (\cf6\i0 'blog_by_slug'\cf1 , \cf5\i [\cf6\i0 'slug' \cf3 => \cf5 $item\i [\cf6\i0 'slug'\cf5\i ]])\cf1\i0 ;\line             \cf5\i\}\cf1\i0 , self\cf3 ::\cf5\i POSTS)\line         ]\line     )\cf1\i0 ;\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\f0\fs22\par
 \par
-\par
-\par
-\par
-\par
+Section 5 lesson 34 - Fetching objects using repositories\par
 \par
 \par
 \par
