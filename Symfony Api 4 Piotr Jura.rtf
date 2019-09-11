@@ -1,5 +1,5 @@
-{\rtf1\ansi\ansicpg1250\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset238 Calibri;}{\f1\fnil Consolas;}}
-{\colortbl ;\red204\green120\blue50;\red35\green37\blue37;\red169\green183\blue198;\red98\green151\blue85;\red152\green118\blue170;\red106\green135\blue89;\red104\green151\blue187;\red255\green198\blue109;\red114\green115\blue122;}
+{\rtf1\ansi\ansicpg1250\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset238 Calibri;}{\f1\fnil Consolas;}{\f2\fnil\fcharset238 Consolas;}}
+{\colortbl ;\red204\green120\blue50;\red35\green37\blue37;\red169\green183\blue198;\red98\green151\blue85;\red152\green118\blue170;\red106\green135\blue89;\red104\green151\blue187;\red255\green198\blue109;\red114\green115\blue122;\red128\green128\blue128;}
 {\*\generator Riched20 10.0.18362}\viewkind4\uc1 
 \pard\sa200\sl276\slmult1\b\f0\fs22\lang1045 PHP\par
 Section 3 Lesson 13 Interfaces\par
@@ -70,26 +70,67 @@ Section 5 lesson 33 - Persisting entities and serializing data\par
 
 \pard\sa200\sl276\slmult1\cf0\highlight0\b\f0\fs22\par
 \par
-Section 5 lesson 34 - Fetching objects using repositories\par
+Section 5 lesson 35 ParamConverter - type hinting actions for automatic fetching of entities\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\b0\f1\fs20 <?php\line\line namespace \cf3 App\\Controller\cf1 ;\line\line use \cf3 App\\Entity\\BlogPost\cf1 ;\line use \cf3 Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\cf1 ;\line use \cf3 Symfony\\Component\\HttpFoundation\\JsonResponse\cf1 ;\line use \cf3 Symfony\\Component\\HttpFoundation\\Request\cf1 ;\line use \cf3 Symfony\\Component\\Routing\\Annotation\\Route\cf1 ;\line use \cf3 Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController\cf1 ;\line use \cf3 Symfony\\Component\\Serializer\\Serializer\cf1 ;\line\line\cf4\i /**\line  * \b @Route\b0 ("/blog")\line  */\line\cf1\i0 class \cf3 BlogController \cf1 extends \cf3 AbstractController\line\cf5\i\{\line\line\line     \cf4 /**\line      * \b @Route\b0 ("/\{page\}", name="blog_list", defaults=\{"page": 5\}, requirements=\{"page"="\\d+"\})\line      */\line     \cf1\i0 public function \cf8 list\cf5\i (\i0 $page \cf3 = \cf7 1\cf1 , \cf3 Request \cf5 $request\i )\line     \{\line         \i0 $limit \cf3 = \cf5 $request\cf3 ->\cf8 get\cf5\i (\cf6\i0 'limit'\cf1 , \cf7 10\cf5\i )\cf1\i0 ;\line         \cf5 $repository \cf3 = \cf5 $this\cf3 ->\cf8 getDoctrine\cf5\i ()\cf3\i0 ->\cf8 getRepository\cf5\i (\cf3\i0 BlogPost::\cf1 class\cf5\i )\cf1\i0 ;\line         \cf5 $items \cf3 = \cf5 $repository\cf3 ->\cf8 findAll\cf5\i ()\cf1\i0 ;\line\line         return \cf5 $this\cf3 ->\cf8 json\cf5\i (\line             [\line                 \cf6\i0 'page' \cf3 => \cf5 $page\cf1 ,\line                 \cf6 'limit' \cf3 => \cf5 $limit\cf1 ,\line                 \cf6 'data' \cf3 => array_map\cf5\i (\cf1\i0 function \cf5\i (\cf3\i0 BlogPost \cf5 $item\i ) \{\line                     \cf1\i0 return \cf5 $this\cf3 ->\cf8 generateUrl\cf5\i (\cf6\i0 'blog_by_slug'\cf1 , \cf5\i [\cf6\i0 'slug' \cf3 => \cf5 $item\cf3 ->\cf8 getSlug\cf5\i ()])\cf1\i0 ;\line                 \cf5\i\}\cf1\i0 , \cf5 $items\i )\line             ]\line         )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{id\}", name="blog_by_id", requirements=\{"id"="\\d+"\})\line      * \b @ParamConverter\b0 ("post", class="App:BlogPost")\line      */\line     \cf1\i0 public function \cf8 post\cf5\i (\cf3\i0 BlogPost \cf5 $post\i )\line     \{\line         \cf10\i0 // It's the same as doing find($id) on repository\line         \cf1 return \cf5 $this\cf3 ->\cf8 json\cf5\i (\i0 $post\i )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/post/\{slug\}", name="blog_by_slug")\line      * The below annotation is not required when $post is typehinted with BlogPost\line      * and route parameter name matches any field on the BlogPost entity\line      * \b @ParamConverter\b0 ("post", class="App:BlogPost", options=\{"mapping": \{"slug": "author"\}\})\line      */\line     \cf1\i0 public function \cf9 postBySlug\cf5\i (\cf3\i0 BlogPost \cf5 $post\i )\line     \{\line         \cf10\i0 // It's the same as doing findOneBy(['slug' => contents of \{slug\}])\line         \cf1 return \cf5 $this\cf3 ->\cf8 json\cf5\i (\i0 $post\i )\cf1\i0 ;\line     \cf5\i\}\line\line     \cf4 /**\line      * \b @Route\b0 ("/add", name="blog_add", methods=\{"POST"\})\line      */\line     \cf1\i0 public function \cf8 add\cf5\i (\cf3\i0 Request \cf5 $request\i )\line     \{\line         \cf4 /** \b @var \b0 Serializer $serializer */\line         \cf5\i0 $serializer \cf3 = \cf5 $this\cf3 ->\cf8 get\cf5\i (\cf6\i0 'serializer'\cf5\i )\cf1\i0 ;\line\line         \cf5 $blogPost \cf3 = \cf5 $serializer\cf3 ->\cf8 deserialize\cf5\i (\i0 $request\cf3 ->\cf8 getContent\cf5\i ()\cf1\i0 , \cf3 BlogPost::\cf1 class, \cf6 'json'\cf5\i )\cf1\i0 ;\line         \cf5 $em \cf3 = \cf5 $this\cf3 ->\cf8 getDoctrine\cf5\i ()\cf3\i0 ->\cf8 getManager\cf5\i ()\cf1\i0 ;\line         \cf5 $em\cf3 ->\cf8 persist\cf5\i (\i0 $blogPost\i )\cf1\i0 ;\line         \cf5 $em\cf3 ->\cf8 flush\cf5\i ()\cf1\i0 ;\line\line         return \cf5 $this\cf3 ->\cf8 json\cf5\i (\i0 $blogPost\i )\cf1\i0 ;\line     \cf5\i\}\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22\par
+Section 5 lesson 36 Deleting entities\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf4\highlight2\b0\i\f1\fs20 /**\line  * \b @Route\b0 ("/post/\{id\}", name="blog_delete", methods=\{"DELETE"\})\line  */\line\cf1\i0 public function \cf8 delete\cf5\i (\cf3\i0 BlogPost \cf5 $post\i )\line\{\line     \i0 $em \cf3 = \cf5 $this\cf3 ->\cf8 getDoctrine\cf5\i ()\cf3\i0 ->\cf8 getManager\cf5\i ()\cf1\i0 ;\line     \cf5 $em\cf3 ->\cf8 remove\cf5\i (\i0 $post\i )\cf1\i0 ;\line     \cf5 $em\cf3 ->\cf8 flush\cf5\i ()\cf1\i0 ;\line\line     return new \cf3 JsonResponse\cf5\i (\cf1\i0 null, \cf3 Response::\cf5\i HTTP_NO_CONTENT)\cf1\i0 ;\line\cf5\i\}\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22\par
+\b0 add to function post nad fuction add after name in rout\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf4\highlight2\i\f1\fs20 , methods=\{"GET"\})\f2  \f1\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\b\i0\f0\fs22\par
 \par
 \par
+Section 5 lesson 37 Doctrine Fixtures - seeding fake data\par
+\b0 composer require --dev doctrine/doctrine-fixtures-bundle\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\highlight2\f1\fs20 <?php\line\line namespace \cf3 App\\DataFixtures\cf1 ;\line\line use \cf3 App\\Entity\\BlogPost\cf1 ;\line use \cf3 Doctrine\\Bundle\\FixturesBundle\\Fixture\cf1 ;\line use \cf3 Doctrine\\Common\\Persistence\\ObjectManager\cf1 ;\line\line class \cf3 AppFixtures \cf1 extends \cf3 Fixture\line\cf5\i\{\line     \cf1\i0 public function \cf8 load\cf5\i (\cf3\i0 ObjectManager \cf5 $manager\i )\line     \{\line         \i0 $blogPost \cf3 = \cf1 new \cf3 BlogPost\cf5\i ()\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setTitle\cf5\i (\cf6\i0 'A first post!'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setPublished\cf5\i (\cf1\i0 new \cf3\\DateTime\cf5\i (\cf6\i0 'now'\cf5\i ))\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setContent\cf5\i (\cf6\i0 'Post text!'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setAuthor\cf5\i (\cf6\i0 'Piotr Jura'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setSlug\cf5\i (\cf6\i0 'a-first-post'\cf5\i )\cf1\i0 ;\line\line         \cf5 $manager\cf3 ->\cf8 persist\cf5\i (\i0 $blogPost\i )\cf1\i0 ;\line\line         \cf5 $blogPost \cf3 = \cf1 new \cf3 BlogPost\cf5\i ()\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setTitle\cf5\i (\cf6\i0 'A second post!'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setPublished\cf5\i (\cf1\i0 new \cf3\\DateTime\cf5\i (\cf6\i0 'now'\cf5\i ))\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setContent\cf5\i (\cf6\i0 'Post text!'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setAuthor\cf5\i (\cf6\i0 'Piotr Jura'\cf5\i )\cf1\i0 ;\line         \cf5 $blogPost\cf3 ->\cf8 setSlug\cf5\i (\cf6\i0 'a-second-post'\cf5\i )\cf1\i0 ;\line\line         \cf5 $manager\cf3 ->\cf8 persist\cf5\i (\i0 $blogPost\i )\cf1\i0 ;\line\line         \cf5 $manager\cf3 ->\cf8 flush\cf5\i ()\cf1\i0 ;\line     \cf5\i\}\line\}\line\par
+
+\pard\sa200\sl276\slmult1\cf0\highlight0\i0\f0\fs22 php bin/console doctrine:fixtures:load\b\par
 \par
+Section 5 Lesson 38 Admin panel introduction - EasyAdmin\par
+\b0 composer require admin\par
+edit - easy_admin.yaml\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\f1\fs20 easy_admin\cf3 :\line     \cf1 entities\cf3 :\line\cf4\i #        # List the entity class name you want to manage\line         \cf3\i0 - App\\Entity\\BlogPost\line\cf4\i #        - App\\Entity\\Category\line #        - App\\Entity\\User\line\par
+
+\pard\sa200\sl276\slmult1\cf0\b\i0\f0\fs22\par
+Section 6 API Platform -Introduction \par
+Lesson 39 Install Api Platform and create the first resource\par
+\b0 composer require api\par
+dodac do klas @ApiResource() aby stala sie api\b\par
+\b0 poprzez postmana mozemy dodawac(post) encje i edytowac poszegolne za pomoca PUT \par
+API platform dodaje nam sporo routow\b\par
 \par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
-\par
+Section 6 Leson 41 ManyToOne relation and migration\par
 \b0\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\f2\fs20 composer require --dev symfony/var-dumper // aby dumpy dzialaly prawidlowo\par
+composer require orm-fixtures --dev\par
+\par
+//DataFixtures/AppFixtures.php to load data in our database\par
+php bin/console list doctrine //Wyswietla nam liste komend doctrine\par
+bin/console doctrine:schema:drop -n -q --force --full-database\par
+//kasuje baze\par
+rm src/Migrations/*.php //kasuje wszystkie pliki migracji\par
+bin/console make:migration //generowanie nowych migration files\par
+bin/console doctrine:migrations:migrate // magrate tables to the database\par
+bin/console doctrine:fixtures:load //load example data\par
+\par
+\par
+bin/console doctrine:schema:drop -n -q --force --full-database\par
+&& rm src/Migrations/*.php && bin/console make:migration && bin/console doctrine:migrations:migrate && bin/console doctrine:fixtures:load\par
+
+\pard\sa200\sl276\slmult1\b\f0\fs22\par
+\par
+Section 6 Lesson 42 Fixtures with references(for relations)\b0\par
 \par
 \par
 \par
