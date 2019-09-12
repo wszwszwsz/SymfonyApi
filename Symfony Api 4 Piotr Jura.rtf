@@ -42131,7 +42131,9 @@ Lesson 55 JWT Tokens Introduction\par
 \cf0\highlight0\b Lesson 56 Preparing JWT token library and keys\par
 \b0 composer require lexik/jwt-authentication-bundle\cf1\highlight2\par
 \par
-\cf0\highlight0 openss; genrsa -out config/jwt/priwate.pem -aes246 4096\cf1\highlight2\par
+\cf0\highlight0 openssl genrsa -out config/jwt/private.pem -aes256 4096\par
+openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem\par
+\cf1\highlight2\par
 \par
 \par
 \par
