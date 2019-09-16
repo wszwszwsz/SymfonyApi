@@ -42135,13 +42135,18 @@ Lesson 55 JWT Tokens Introduction\par
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem\par
 \cf1\highlight2\par
 \par
+\cf0\highlight0\b Section 8 Lesson 58 Firewall configuration\b0\par
+\b security.yaml\b0\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf1\f1 security\cf3 :\line     \cf4\i # {{\field{\*\fldinst{HYPERLINK https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers }}{\fldrslt{https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers\ul0\cf0}}}}\f1\fs20\line     \cf1\i0 encoders\cf3 :\line         \cf1 App\\Entity\\User\cf3 : bcrypt\line     \cf1 providers\cf3 :\line\cf4\i #        in_memory: \{ memory: null \}\line         \cf1\i0 database\cf3 :\line             \cf1 entity\cf3 :\line                 \cf1 class\cf3 : App\\Entity\\User\line                 \cf1 property\cf3 : username\line     \cf1 firewalls\cf3 :\line         \cf1 dev\cf3 :\line             \cf1 pattern\cf3 : ^/(_(profiler|wdt)|css|images|js)/\line             \cf1 security\cf3 : false\line         \cf1 api\cf3 :\line             \cf1 pattern\cf3 : ^/api\line             \cf1 stateless\cf3 : true\line             \cf1 anonymous\cf3 : true\line             \cf1 json_login\cf3 :\line                 \cf4\i # Here authentication will happen (token generation)\line                 \cf1\i0 check_path\cf3 : /api/login_check\line                 \cf1 success_handler\cf3 : lexik_jwt_authentication.handler.authentication_success\line                 \cf1 failure_handler\cf3 : lexik_jwt_authentication.handler.authentication_failure\line             \cf1 guard\cf3 :\line                 \cf1 authenticators\cf3 :\line                     - lexik_jwt_authentication.jwt_token_authenticator\line\line             \cf4\i # activate different ways to authenticate\line             # {{\field{\*\fldinst{HYPERLINK https://symfony.com/doc/current/security.html#firewalls-authentication }}{\fldrslt{https://symfony.com/doc/current/security.html#firewalls-authentication\ul0\cf0}}}}\f1\fs20\line\line             # {{\field{\*\fldinst{HYPERLINK https://symfony.com/doc/current/security/impersonating_user.html }}{\fldrslt{https://symfony.com/doc/current/security/impersonating_user.html\ul0\cf0}}}}\f1\fs20\line             # switch_user: true\line\line     # Easy way to control access for large sections of your site\line     # Note: Only the *first* access control that matches will be used\line     \cf1\i0 access_control\cf3 :\line         - \cf5\i\{ \cf1\i0 path\cf3 : ^/api/login, \cf1 roles\cf3 : IS_AUTHENTICATED_ANONYMOUSLY \cf5\i\}\line         \cf3\i0 - \cf5\i\{ \cf1\i0 path\cf3 : ^/api,       \cf1 roles\cf3 : IS_AUTHENTICATED_FULLY \cf5\i\}\line         \cf4 # - \{ path: ^/admin, roles: ROLE_ADMIN \}\line         # - \{ path: ^/profile, roles: ROLE_USER \}\line\par
+\cf0\b\i0\f2 Section 8 Lesson 59 JSON login configuration and Guard Authentication explained\par
+\b0 php bin/console debug:container lexik_jwt_authentication.handler.authentication_success\par
 \par
-\par
-\par
-\par
-\par
-\par
-\par
+//zwraca \par
+//Information for Service //"lexik_jwt_authentication.handler.authentication_success"\b\par
+\cf1\highlight2\b0\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\par
 \par
 \par
 \par
