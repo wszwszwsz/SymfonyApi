@@ -16,25 +16,31 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     itemOperations={
- *          "get"={
- *              "access_control"="is_granted('IS_AUTHENTICATED_FULLY')",
- *              normalization_context={
- *                  "groups"={"get"}
- *                }
- *           }
- *        "put"={
- *              "access_control"="is_granted('IS_AUTHENTICATED_FULLY') and object == user",
- *                   denormalization_context={
- *                  "groups"={"put"}
- *                }
- *           }
+ *         "get"={
+ *             "access_control"="is_granted('IS_AUTHENTICATED_FULLY')",
+ *             "normalization_context"={
+ *                 "groups"={"get"}
+ *             }
+ *         },
+ *         "put"={
+ *             "access_control"="is_granted('IS_AUTHENTICATED_FULLY') and object == user",
+ *             "denormalization_context"={
+ *                 "groups"={"put"}
+ *             },
+ *            "normalization_context"={
+ *                 "groups"={"get"}
+ *             }
+ *          }
  *     },
  *     collectionOperations={
- *     "post"={
- *                 denormalization_context={
- *         "groups"={"post"}
+ *         "post"={
+ *             "denormalization_context"={
+ *                 "groups"={"post"}
+ *             },
+ *             "normalization_context"={
+ *                 "groups"={"get"}
+ *             }
  *         }
- *       }
  *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -90,7 +96,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"posts", "put"})
+     * @Groups({"post", "put"})
      * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(min=6, max=255)
