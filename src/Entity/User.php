@@ -75,7 +75,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"put", "post"})
+     * @Groups({"put", "post", "get-admin"})
      * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
@@ -104,7 +104,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post", "put"})
+     * @Groups({"post", "put", "get-admin", "get-owner"})
      * @Assert\NotBlank()
      * @Assert\Email()
      * @Assert\Length(min=6, max=255)
@@ -125,6 +125,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="simple_array", length=200)
+     * @Groups({"get-admin", "get-owner"})
      */
     private $roles;
 
