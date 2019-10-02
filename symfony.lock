@@ -16,8 +16,23 @@
             "src/Entity/.gitignore"
         ]
     },
+    "behat/behat": {
+        "version": "v3.5.0"
+    },
+    "behat/gherkin": {
+        "version": "v4.6.0"
+    },
+    "behat/mink": {
+        "version": "1.7.x-dev"
+    },
+    "behat/mink-extension": {
+        "version": "2.3.1"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
+    },
+    "container-interop/container-interop": {
+        "version": "1.2.0"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -156,6 +171,9 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "monolog/monolog": {
+        "version": "1.25.1"
+    },
     "namshi/jose": {
         "version": "7.2.3"
     },
@@ -228,6 +246,9 @@
     "symfony/cache-contracts": {
         "version": "v1.1.5"
     },
+    "symfony/class-loader": {
+        "version": "v3.4.31"
+    },
     "symfony/config": {
         "version": "v4.3.4"
     },
@@ -243,6 +264,9 @@
             "./bin/console",
             "./config/bootstrap.php"
         ]
+    },
+    "symfony/css-selector": {
+        "version": "v4.3.4"
     },
     "symfony/debug": {
         "version": "v4.3.4"
@@ -329,11 +353,44 @@
     "symfony/mime": {
         "version": "v4.3.4"
     },
+    "symfony/monolog-bridge": {
+        "version": "v4.3.4"
+    },
+    "symfony/monolog-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "6240c6d43e8237a32452f057f81816820fd56ab6"
+        },
+        "files": [
+            "./config/packages/dev/monolog.yaml",
+            "./config/packages/prod/monolog.yaml",
+            "./config/packages/test/monolog.yaml"
+        ]
+    },
     "symfony/options-resolver": {
         "version": "v4.3.4"
     },
     "symfony/orm-pack": {
         "version": "v1.0.6"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "b0582341f1df39aaf3a9a866cdbe49937da35984"
+        },
+        "files": [
+            "./.env.test",
+            "./bin/phpunit",
+            "./config/bootstrap.php",
+            "./phpunit.xml.dist",
+            "./tests/.gitignore"
+        ]
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.12.0"
