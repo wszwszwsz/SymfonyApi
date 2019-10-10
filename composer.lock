@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "449276b860cf1c6f0da02aed4ea6bc88",
+    "content-hash": "21c1174c46f326d5622e9a8cd30b1c86",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -1633,6 +1633,42 @@
             "time": "2016-10-17T18:31:11+00:00"
         },
         {
+            "name": "fnash/hydra-doc-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fnash/hydra-doc-parser.git",
+                "reference": "2d7ecb88e9547ff6775bddbe24eb2b5a14b7e69a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fnash/hydra-doc-parser/zipball/2d7ecb88e9547ff6775bddbe24eb2b5a14b7e69a",
+                "reference": "2d7ecb88e9547ff6775bddbe24eb2b5a14b7e69a",
+                "shasum": ""
+            },
+            "require": {
+                "skyscanner/jsonpath": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fnash\\HydraDoc\\": "HydraDoc/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fayez Naccache",
+                    "email": "fayez.naccache@gmail.com"
+                }
+            ],
+            "description": "Hydra API documentation parser",
+            "time": "2018-11-09T11:14:36+00:00"
+        },
+        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -2693,6 +2729,55 @@
                 "controllers"
             ],
             "time": "2019-07-08T08:31:25+00:00"
+        },
+        {
+            "name": "skyscanner/jsonpath",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Skyscanner/JsonPath-PHP.git",
+                "reference": "d08d1efeadad3345257249e35e8cfd65f21256ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Skyscanner/JsonPath-PHP/zipball/d08d1efeadad3345257249e35e8cfd65f21256ae",
+                "reference": "d08d1efeadad3345257249e35e8cfd65f21256ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "sami/sami": ">=3.3.0",
+                "satooshi/php-coveralls": ">=1.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonPath\\": "src/Skyscanner/",
+                    "Utilities\\": "src/Skyscanner/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Alessio Linares",
+                    "email": "alessio.linares@skyscanner.net",
+                    "role": "Software Engineer"
+                }
+            ],
+            "description": "JSONPath implementation for querying and updating JSON objects",
+            "keywords": [
+                "json",
+                "jsonpath",
+                "path"
+            ],
+            "abandoned": "galbar/jsonpath",
+            "time": "2017-09-13T09:14:46+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7879,6 +7964,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "fnash/hydra-doc-parser": 20,
         "behat/behat": 20,
         "behat/mink": 20
     },

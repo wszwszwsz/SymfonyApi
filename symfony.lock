@@ -175,6 +175,9 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "fnash/hydra-doc-parser": {
+        "version": "dev-master"
+    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
@@ -267,6 +270,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "skyscanner/jsonpath": {
+        "version": "1.0"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
